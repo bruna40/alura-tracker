@@ -3,6 +3,11 @@
         <h1>
             <img src="../assets/logo.png" alt="logo do site" />
         </h1>
+
+        <button class="button" @click="ativarModoEscuro">
+            {{ classeModoEscuro }}
+        </button>
+
     </header>
 </template>
 
@@ -10,7 +15,24 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-    name: 'BarraLateral'
+    name: 'BarraLateral',
+    emits: ['ativarModoEscuro'],
+    data () {
+        return {
+            modoEscuro: false
+        }
+    },
+    computed: {
+        classeModoEscuro () {
+            return this.modoEscuro ? 'Desativar modo escuro' : 'Ativar modo escuro'
+        }
+    },
+    methods: {
+        ativarModoEscuro () {
+            this.modoEscuro = !this.modoEscuro
+            this.$emit('ativarModoEscuro', this.modoEscuro)
+        }
+    }
 })
 </script>
 <style scoped>
@@ -19,6 +41,7 @@ export default defineComponent({
         width: 100%;
         height: 100vh;
         padding: 1rem;
+        text-align: center;
     }
     @media only screen and (max-width: 768px) {
         header {
